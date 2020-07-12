@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import Axios from "axios"
 
-export default function JoinGroup() {
+export default function JoinGroup(props) {
+    const code = props.location.state.code
     const [user, setUser] = useState("");
     const [groupCode, setGroupCode] = useState("");
     const [groupId, setGroupId] = useState("")
+    const [swipe, setSwipe] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // Axios.post(`/api/groups`)
         getGroupId();
+        setSwipe(!swipe)
     }
 
     const getGroupId = () => {
         Axios.get(`/api/groups/`)
         .then( (res) => {
+            console.log(res)
            const groupObj = res.data.filter(group => 
                 group.name === `${groupCode}`
                 );
@@ -58,10 +62,16 @@ export default function JoinGroup() {
                 </input>
                 <br />
                 <br />
-                <button type="Submit">
-                    <Link to='/Swipe'>Start Swiping!</Link>
-                </button>
+                <button type="Submit">Start Swiping!</button>
             </form>
+            {swipe && <Redirect to={{
+                pathname: '/Swipe',
+                state: { 
+                    code: groupCode,
+                    username: user,
+                    groupId: groupId,
+                 }
+            }}/>}
         </div>
     )
 }

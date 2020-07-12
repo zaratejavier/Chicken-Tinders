@@ -7,6 +7,7 @@ import Axios from 'axios'
 export default function Home(props) {
     const [groupCode, setGroupCode] = useState('')
     const [addingUser, setAddingUser] = useState(false)
+    const [joiningGroup, setJoiningGroup] = useState(false)
 
     const generateCode = () => {
         return `#${Math.floor(Math.random() * 9)}${Math.floor(Math.random() * 9)}${Math.floor(Math.random() * 9)}${Math.floor(Math.random() * 9)}${Math.floor(Math.random() * 9)}${Math.floor(Math.random() * 9)}`
@@ -33,7 +34,11 @@ export default function Home(props) {
             pathname: '/CreateUser',
             state: { code: groupCode, }
         }}/>}
-            <button><Link to='/JoinGroup'>Join a Group</Link></button>
+        {joiningGroup && <Redirect to={{
+            pathname: '/JoinGroup',
+            state: { code: groupCode, }
+        }}/>}
+            <button onClick={() => setJoiningGroup(!joiningGroup)}>Join Group</button>
         </div>
     )
 }
