@@ -43,7 +43,7 @@ export default function Swipe(props) {
         getRestaurants()
         getGroupId()
         getLikes()
-    },[likes, groupId])
+    },[count])
 
     // search for the one i just liked
     // if it exists update the likedcount to two and set we matched to true
@@ -107,6 +107,7 @@ export default function Swipe(props) {
         )
         .then(res3 => {
             console.log('create new like:', res3)
+            setCount(count + 1)
         })
         .catch(err => console.log(err))
     }
@@ -114,59 +115,6 @@ export default function Swipe(props) {
     const likeButton = () => {
         easierLikeRestaurnt()
         checkMatches()
-    }
-
-    //get all likes
-    // have any been liked by everyone?
-        // yes => set weMatched to true and pass that restaurant id
-        // no => check to see if this one has been liked before?
-            //yes => setWeMatched to true and pass that restaurant id
-            //no => create a new liked restaurant with a likedcount of 1, a group_id set to this group_id, and a restaurant id set to this restaurant id
-
-    const likeRestaurant = () => {
-        Axios.get(`/api/groups/${groupId}/liked_restaurants`)
-        .then(res => {
-            console.log(res.data)
-            if(res.data.length > 0){
-                const match = res.data.filter(r => {
-                    return r.likedcount > 1
-                })
-                return (match.length > 0 ? 
-                    (setWeMatched(!weMatched)) 
-                    : 
-                    ( Axios.post(
-                        `/api/groups/${groupId}/liked_restaurants/`,
-                        { likedcount: 1, group_id: groupId, restaurant_id: currentRestaurant.id }
-                        )
-                        .then(res=> {
-                            console.log('created new liked restaurant:', res.data)
-                            setCount(count + 1)
-                            setCurrentRestaurant(restaurants[count])
-                        })
-                        .catch(err => console.log(err))
-                    )
-                    )
-            } else {
-                Axios.get(`/api/groups/${groupId}/liked_restaurants/${currentRestaurant.id}`)
-                .then(res => {
-                    console.log(res.data)
-                    if(res.data.length > 0){
-                        setWeMatched(!weMatched)
-                        return res.data[0].id
-                    } else {
-                        Axios.post(
-                            `/api/groups/${groupId}/liked_restaurants/`,
-                            { likedcount: 1, group_id: groupId, restaurant_id: currentRestaurant.id }
-                            )
-                            .then(res=> console.log('created new liked restaurant:', res.data))
-                            .catch(err => console.log(err))
-                    }
-            })
-            .catch(err => console.log(err))
-            }
-            setCount(count + 1)
-            setCurrentRestaurant(restaurants[count])
-        })
     }
 
     //disliking
@@ -200,13 +148,11 @@ export default function Swipe(props) {
         <div>
             <CodeDisplay code={code}/>
             <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-                
-                {console.log(props)}
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', border:'3px solid black', borderRadius:'30px'}}>
-                    <h1 style={{margin:'40px'}}>{currentRestaurant.name}</h1>
-                    <img src={currentRestaurant.image} style={{margin:'40px'}}/>
-                    <h3 style={{margin:'40px'}}>Cuisine: {currentRestaurant.cuisine}</h3>
-                    <div style={{display:'flex', margin:'40px'}}>
+                    <h1 style={{margin:'10px'}}>{currentRestaurant.name}</h1>
+                    <img src={currentRestaurant.image} style={{margin:'10px', maxHeight:'400px'}}/>
+                    <h3 style={{margin:'20px'}}>Cuisine: {currentRestaurant.cuisine}</h3>
+                    <div style={{display:'flex', margin:'20px'}}>
                         <button onClick={() => dislikeRestaurant()}><img src={down}/></button>
                         <div style={{width:'30px'}}/>
                         <button>View Menu</button>
