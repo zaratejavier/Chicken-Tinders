@@ -45,7 +45,7 @@ export default function Swipe(props) {
         getRestaurants()
         getGroupId()
         getLikes()
-    },[count])
+    },[])
 
     // search for the one i just liked
     // if it exists update the likedcount to two and set we matched to true
@@ -69,26 +69,28 @@ export default function Swipe(props) {
     }
 
     const easierLikeRestaurnt = () => {
-        const groupLikes = likes.filter(r => r.group_id == groupId)
-        if (groupLikes.length > 0){
-            const match = groupLikes.filter(l => l.restaurant_id == currentRestaurant.id)
-            if (match.length > 0){
-                updateLike(match[0].id)
-            }else{
-                createLike()
-            }
-        } else {
+        Axios.get(`/api/groups/${groupId}/liked_restaurants/`)
+        .then(res => {
+        const match = res.data.filter(l => l.restaurant_id == currentRestaurant.id)
+        console.log('match filter returned:', match)
+        if (match.length > 0){
+            updateLike(match[0].id)
+        }else{
             createLike()
         }
+        })
+        checkMatches()
     }
 
     const getLikes = () => {
         Axios.get(`/api/groups/${groupId}/liked_restaurants`)
         .then(res => {
             setLikes(res.data)
+            return res.data
         })
         .catch(err => console.log(err))
     }
+
 
     const updateLike = (id) => {
         Axios.put(
@@ -103,6 +105,7 @@ export default function Swipe(props) {
     }
 
     const createLike = () => {
+        getLikes()
         Axios.post(
             `/api/groups/${groupId}/liked_restaurants/`,
             { likedcount: 1, group_id: groupId, restaurant_id: currentRestaurant.id }
@@ -110,6 +113,7 @@ export default function Swipe(props) {
         .then(res3 => {
             console.log('create new like:', res3)
             setCount(count + 1)
+            setCurrentRestaurant(restaurants[count])
         })
         .catch(err => console.log(err))
     }
