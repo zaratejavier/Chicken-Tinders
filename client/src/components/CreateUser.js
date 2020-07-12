@@ -40,12 +40,16 @@ export default function CreateUser(props) {
     return (
         <div>
             <CodeDisplay code={code}/>
-            Create user
-            <form onSubmit={handleSubmit}>
-                <label> Enter your username</label>
-                <input value={username}
-                onChange={(e) => setUsername(e.target.value)}/>
-                <button type='submit'>Start Swiping</button>
+        <div style={{height:'80vh', width:'100vw', display:'flex', flexDirection:'column', justifyContent:'space-around', alignItems:'center'}}>
+            <h2>Create a user</h2>
+            <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center', padding:'20px', width:'auto'}}>
+                <label style={{padding:'10px'}}> Enter a username</label>
+                <input 
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                style={{width:'200px', height:'40px', fontSize:'30px'}}
+                />
+                <button type='submit' style={styles.button}>Start Swiping</button>
             </form>
             {swipe && <Redirect to={{
                 pathname: '/Swipe',
@@ -56,5 +60,18 @@ export default function CreateUser(props) {
                  }
             }}/>}
         </div>
+        </div>
     )
+}
+
+const styles = {
+    button: {
+        padding:'15px',
+        fontSize:'25px',
+        backgroundColor:'#E9692C',
+        borderRadius:'30px',
+        border: 'none',
+        margin:'30px',
+        boxShadow:'2px 2px 2px 2px #e1e1e1'
+    }
 }

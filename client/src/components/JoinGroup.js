@@ -46,8 +46,7 @@ export default function JoinGroup(props) {
     return (
         <div>
             Join Group
-
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                 <label>Input your username: </label>
                     <input 
                         value={user} 
@@ -62,7 +61,7 @@ export default function JoinGroup(props) {
                 </input>
                 <br />
                 <br />
-                <button type="Submit">Start Swiping!</button>
+                <button style={styles.button} type="Submit">Start Swiping!</button>
             </form>
             {swipe && <Redirect to={{
                 pathname: '/Swipe',
@@ -74,4 +73,16 @@ export default function JoinGroup(props) {
             }}/>}
         </div>
     )
+}
+
+const styles = {
+    button: {
+        padding:'15px',
+        fontSize:'25px',
+        backgroundColor:'#E9692C',
+        borderRadius:'30px',
+        border: 'none',
+        margin:'30px',
+        boxShadow:'2px 2px 2px 2px #e1e1e1'
+    }
 }

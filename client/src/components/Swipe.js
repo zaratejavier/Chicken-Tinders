@@ -4,6 +4,7 @@ import up from './img/up.png'
 import down from './img/down.png'
 import { Redirect } from 'react-router-dom'
 import CodeDisplay from './CodeDisplay'
+import Menu from './Menu'
 
 export default function Swipe(props) {
     const code = props.location.state.code
@@ -14,6 +15,7 @@ export default function Swipe(props) {
     const [weMatched, setWeMatched] = useState(false)
     const [count, setCount] = useState(0)
     const [likes, setLikes] = useState([])
+    const [showMenu, setShowMenu] = useState(false)
 
 
     const getRestaurants = () => {
@@ -155,7 +157,8 @@ export default function Swipe(props) {
                     <div style={{display:'flex', margin:'20px'}}>
                         <button onClick={() => dislikeRestaurant()}><img src={down}/></button>
                         <div style={{width:'30px'}}/>
-                        <button>View Menu</button>
+                        <button onClick={() => setShowMenu(!showMenu)}>View Menu</button>
+                        
                         <div style={{width:'30px'}}/>
                         <button onClick={() => likeButton()}><img src={up}/></button>
                         {weMatched && <Redirect to={{
@@ -171,6 +174,7 @@ export default function Swipe(props) {
                     </div>
                 </div>
             </div>
+            {showMenu && <Menu name={currentRestaurant.name} showMenu={showMenu} setShowMenu={setShowMenu} items={currentRestaurant.menu_items}/>}
         </div>
     )
 }

@@ -1,10 +1,22 @@
 .App {
   text-align: center;
 }
+
 *{
   margin: 0px;
   padding: 0px;
 }
+
+.btn {
+      padding:'15px';
+      font-size: '25px';
+      background-color:'#E9692C';
+      border-radius:'30px';
+      border: 'none';
+      margin:'30px';
+      box-shadow:'2px 2px 2px 2px #e1e1e1'
+}
+
 
 .App-logo {
   height: 40vmin;
