@@ -22,12 +22,12 @@ export default function Match(props) {
     return (
         <div>
             <CodeDisplay code={code}/>
-            <div style={{display:'flex', justifyContent:'center', flexDirection:'column', alignItems:'center'}}>
+            <div style={{display:'flex', justifyContent:'center', flexDirection:'column', alignItems:'center',}}>
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', borderRadius:'40px', border:'3px solid black', maxWidth:'50vw'}}>
                 <h1>It's a Match!</h1>
-                <h1 style={{margin:'40px'}}>{match.name}</h1>
-                <img src={match.image} style={{margin:'40px', maxHeight:'400px'}}/>
-                <h3 style={{margin:'40px'}}>Cuisine: {match.cuisine}</h3>
+                <h1 style={{margin:'30px'}}>{match.name}</h1>
+                <img src={match.image} style={{margin:'10px', maxHeight:'300px'}}/>
+                <h3 style={{margin:'20px'}}>Cuisine: {match.cuisine}</h3>
                 </div>
             </div>
         </div>

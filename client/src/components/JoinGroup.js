@@ -51,26 +51,24 @@ export default function JoinGroup(props) {
     }
 
     return (
-        <div>
-            Join Group
-            <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+        <div style={styles.format}>
+            <h1 style={{fontSize:'80px', margin:'20px'}}>Join Group</h1>
+            <form onSubmit={handleSubmit} style={styles.form}>
                 <label>Input your username: </label>
                     <input 
                         value={user}
                         required 
-                        onChange={(e) => setUser(e.target.value)}>
-                    </input>
-                <br />
-                <br />
+                        onChange={(e) => setUser(e.target.value)}
+                        style={styles.input}
+                        />
                 <label>Input your 6 digit group code inlude the hashtag: </label>
                 <input 
                     pattern={`#[0-9][0-9][0-9][0-9][0-9][0-9]`}
                     required 
                     value={groupCode} 
-                    onChange={(e) => setGroupCode(e.target.value)}>
-                </input>
-                <br />
-                <br />
+                    onChange={(e) => setGroupCode(e.target.value)}
+                    style={styles.input}
+                    />
                 <button style={styles.button} type="Submit">Start Swiping!</button>
             </form>
             {swipe && <Redirect to={{
@@ -94,5 +92,26 @@ const styles = {
         border: 'none',
         margin:'30px',
         boxShadow:'2px 2px 2px 2px #e1e1e1'
+    },
+    format: {
+        height: '80vh',
+        width:'100vw',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    form: {
+        display:'flex', 
+        flexDirection:'column', 
+        alignItems:'center',
+        justifyContent:'space-around',
+        minHeight:'300px',
+    },
+    input: {
+        width:'200px', 
+        height:'40px', 
+        fontSize:'30px', 
+        margin:'20px',
     }
 }

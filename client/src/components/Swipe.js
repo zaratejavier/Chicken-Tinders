@@ -165,7 +165,7 @@ export default function Swipe(props) {
             <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', border:'3px solid black', borderRadius:'30px'}}>
                     <h1 style={{margin:'10px'}}>{currentRestaurant.name}</h1>
-                    <img src={currentRestaurant.image} style={{margin:'10px', maxHeight:'400px'}}/>
+                    <img src={currentRestaurant.image} style={{margin:'10px', maxHeight:'300px'}}/>
                     <h3 style={{margin:'20px'}}>Cuisine: {currentRestaurant.cuisine}</h3>
                     <div style={{display:'flex', margin:'20px'}}>
                         <button onClick={() => dislikeRestaurant()}><img src={down}/></button>
