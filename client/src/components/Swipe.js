@@ -16,7 +16,14 @@ export default function Swipe(props) {
     const [count, setCount] = useState(0)
     const [likes, setLikes] = useState([])
     const [showMenu, setShowMenu] = useState(false)
+    const [users, setUsers] = useState([])
 
+
+    const getUsers = () => {
+        Axios.get(`/api/groups/${groupId}/users`)
+        .then(res => console.log(res))
+        .catch(err=> console.log(err))
+    }
 
     const getRestaurants = () => {
         Axios.get('api/restaurants')
@@ -73,11 +80,11 @@ export default function Swipe(props) {
         .then(res => {
         const match = res.data.filter(l => l.restaurant_id == currentRestaurant.id)
         console.log('match filter returned:', match)
-        if (match.length > 0){
-            updateLike(match[0].id)
-        }else{
-            createLike()
-        }
+            if (match.length > 0){
+                updateLike(match[0].id)
+            }else{
+                createLike()
+            }
         })
         checkMatches()
     }
@@ -121,6 +128,7 @@ export default function Swipe(props) {
     const likeButton = () => {
         easierLikeRestaurnt()
         checkMatches()
+        getUsers()
     }
 
     //disliking
@@ -148,6 +156,7 @@ export default function Swipe(props) {
             }
         })
         .catch(err => console.log(err))
+        getUsers()
     }
 
     return (

@@ -13,20 +13,29 @@ export default function JoinGroup(props) {
         e.preventDefault();
         // Axios.post(`/api/groups`)
         getGroupId();
+        if(groupCode.match(/#[0-9][0-9][0-9][0-9][0-9][0-9]/) === null) {
+            alert('Code was the wrong format. Please check your code and try again')
+            return 
+        } 
+        if (groupId === '') return 
         setSwipe(!swipe)
+
     }
 
     const getGroupId = () => {
         Axios.get(`/api/groups/`)
         .then( (res) => {
-            console.log(res)
-           const groupObj = res.data.filter(group => 
-                group.name === `${groupCode}`
-                );
+           const groupObj = res.data.filter(group => group.name === `${groupCode}`);
+           console.log(groupObj)
+           if(groupObj.length > 0) {
             setGroupId(groupObj[0].id)
             addUser(groupObj[0].id);
+            } else {
+                alert('Your code did not match a known group code') 
+               return;
+            }
         })
-        .catch ( (err) => {
+        .catch ((err) => {
             console.log(err)
         })
     }
@@ -39,8 +48,6 @@ export default function JoinGroup(props) {
         .catch( (err) => {
             console.log(err)
         })
-        
-        // setUser([groupObj, ...users]);
     }
 
     return (
@@ -49,13 +56,16 @@ export default function JoinGroup(props) {
             <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                 <label>Input your username: </label>
                     <input 
-                        value={user} 
+                        value={user}
+                        required 
                         onChange={(e) => setUser(e.target.value)}>
                     </input>
                 <br />
                 <br />
-                <label>Input your group code: </label>
+                <label>Input your 6 digit group code inlude the hashtag: </label>
                 <input 
+                    pattern={`#[0-9][0-9][0-9][0-9][0-9][0-9]`}
+                    required 
                     value={groupCode} 
                     onChange={(e) => setGroupCode(e.target.value)}>
                 </input>
