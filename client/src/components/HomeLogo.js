@@ -11,10 +11,13 @@ export default function HomeLogo() {
             borderRadius:'20px', 
             border:'3px solid black',
             padding:'30px',
+            textAlign:'center',
             }}>
-            <h1>Chicken Tinder</h1>
+            <h1 style={{margin:'40px'}}>Chicken Tinder</h1>
             <img src={ChickenTinder} style={{maxHeight:'300px'}}></img>
-            <p>Don't waste time being hungry! find out what everyone wants to eat NOW!</p>
+            <p style={{margin:'40px 10px', maxWidth:'70%'}}>Don't waste time being hungry! Find out what everyone wants to eat NOW!</p>
         </div>
     )
 }
+
+

@@ -75,7 +75,7 @@ export default function Swipe(props) {
         })
     }
 
-    const easierLikeRestaurnt = () => {
+    const likeRestaurnt = () => {
         Axios.get(`/api/groups/${groupId}/liked_restaurants/`)
         .then(res => {
         const match = res.data.filter(l => l.restaurant_id == currentRestaurant.id)
@@ -126,7 +126,7 @@ export default function Swipe(props) {
     }
 
     const likeButton = () => {
-        easierLikeRestaurnt()
+        likeRestaurnt()
         checkMatches()
         getUsers()
     }
