@@ -16,7 +16,14 @@ export default function Swipe(props) {
     const [count, setCount] = useState(0)
     const [likes, setLikes] = useState([])
     const [showMenu, setShowMenu] = useState(false)
+    const [users, setUsers] = useState([])
 
+
+    const getUsers = () => {
+        Axios.get(`/api/groups/${groupId}/users`)
+        .then(res => console.log(res))
+        .catch(err=> console.log(err))
+    }
 
     const getRestaurants = () => {
         Axios.get('api/restaurants')
@@ -68,16 +75,16 @@ export default function Swipe(props) {
         })
     }
 
-    const easierLikeRestaurnt = () => {
+    const likeRestaurnt = () => {
         Axios.get(`/api/groups/${groupId}/liked_restaurants/`)
         .then(res => {
         const match = res.data.filter(l => l.restaurant_id == currentRestaurant.id)
         console.log('match filter returned:', match)
-        if (match.length > 0){
-            updateLike(match[0].id)
-        }else{
-            createLike()
-        }
+            if (match.length > 0){
+                updateLike(match[0].id)
+            }else{
+                createLike()
+            }
         })
         checkMatches()
     }
@@ -119,8 +126,9 @@ export default function Swipe(props) {
     }
 
     const likeButton = () => {
-        easierLikeRestaurnt()
+        likeRestaurnt()
         checkMatches()
+        getUsers()
     }
 
     //disliking
@@ -148,6 +156,7 @@ export default function Swipe(props) {
             }
         })
         .catch(err => console.log(err))
+        getUsers()
     }
 
     return (
@@ -156,7 +165,7 @@ export default function Swipe(props) {
             <div style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', border:'3px solid black', borderRadius:'30px'}}>
                     <h1 style={{margin:'10px'}}>{currentRestaurant.name}</h1>
-                    <img src={currentRestaurant.image} style={{margin:'10px', maxHeight:'400px'}}/>
+                    <img src={currentRestaurant.image} style={{margin:'10px', maxHeight:'300px'}}/>
                     <h3 style={{margin:'20px'}}>Cuisine: {currentRestaurant.cuisine}</h3>
                     <div style={{display:'flex', margin:'20px'}}>
                         <button onClick={() => dislikeRestaurant()}><img src={down}/></button>

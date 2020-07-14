@@ -40,14 +40,14 @@ export default function CreateUser(props) {
     return (
         <div>
             <CodeDisplay code={code}/>
-        <div style={{height:'80vh', width:'100vw', display:'flex', flexDirection:'column', justifyContent:'space-around', alignItems:'center'}}>
-            <h2>Create a user</h2>
-            <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', alignItems:'center', padding:'20px', width:'auto'}}>
+        <div style={styles.layout}>
+            <h2 style={{fontSize:'80px', }}>Create a user</h2>
+            <form onSubmit={handleSubmit} style={styles.form}>
                 <label style={{padding:'10px'}}> Enter a username</label>
                 <input 
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                style={{width:'200px', height:'40px', fontSize:'30px'}}
+                style={styles.input}
                 />
                 <button type='submit' style={styles.button}>Start Swiping</button>
             </form>
@@ -73,5 +73,26 @@ const styles = {
         border: 'none',
         margin:'30px',
         boxShadow:'2px 2px 2px 2px #e1e1e1'
+    },
+    form: {
+        display:'flex', 
+        flexDirection:'column', 
+        alignItems:'center', 
+        padding:'20px', 
+        width:'auto',
+    },
+    layout: {
+        height:'80vh', 
+        width:'100vw', 
+        display:'flex', 
+        flexDirection:'column', 
+        justifyContent:'space-around', 
+        alignItems:'center',
+    },
+    input: {
+        width:'200px', 
+        height:'40px', 
+        fontSize:'30px', 
+        marginBottom:'20px',
     }
 }
