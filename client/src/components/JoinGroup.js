@@ -30,6 +30,7 @@ export default function JoinGroup(props) {
            if(groupObj.length > 0) {
             setGroupId(groupObj[0].id)
             addUser(groupObj[0].id);
+            setSwipe(!swipe)
             } else {
                 alert('Your code did not match a known group code') 
                return;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import CodeDisplay from './CodeDisplay'
+import { Link } from 'react-router-dom'
 
 export default function Match(props) {
     const code = props.location.state.code
@@ -20,7 +21,7 @@ export default function Match(props) {
     },[])
 
     return (
-        <div>
+        <div style={{textAlign:'center'}}>
             <CodeDisplay code={code}/>
             <div style={{display:'flex', justifyContent:'center', flexDirection:'column', alignItems:'center',}}>
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', borderRadius:'40px', border:'3px solid black', maxWidth:'50vw'}}>
@@ -30,6 +31,7 @@ export default function Match(props) {
                 <h3 style={{margin:'20px'}}>Cuisine: {match.cuisine}</h3>
                 </div>
             </div>
+            <Link to='/'>Go Home</Link>
         </div>
     )
 }
