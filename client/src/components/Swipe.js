@@ -159,6 +159,8 @@ export default function Swipe(props) {
         getUsers()
     }
 
+    if (count > restaurants.length) return <div><h1>No More Restaurants</h1></div>
+
     return (
         <div>
             <CodeDisplay code={code}/>
