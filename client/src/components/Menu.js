@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuItem from './MenuItem'
 import { FaWindowClose } from 'react-icons/fa';
+import Axios from 'axios';
 
-export default function Menu({items, name, showMenu, setShowMenu}) {
-
-    const formatItems = (items) => {
-        items.split(',')
-        // .map(i => i.match(/"([^']+)"/g))
-    }
+export default function Menu({ restaurant_id, name, showMenu, setShowMenu}) {
+    const [items, setItems] = useState([])
+    
+    useEffect(()=> {
+        Axios.get(`/api/restaurants/${restaurant_id}/menu_items`)
+        .then(res => setItems(res.data))
+        .catch(err => console.log(err))
+    },[])
 
     return (
         <div style={styles.menu}>
@@ -16,9 +19,8 @@ export default function Menu({items, name, showMenu, setShowMenu}) {
             <h1 style={{float:'left'}}>{name}</h1>
             <FaWindowClose onClick={() => setShowMenu(!showMenu)}style={{float:'right', fontSize:'30px'}}/>
             </div>
-            <div>
-                {console.log(formatItems(items))}
-                {/* items.map(i => <MenuItem {...i}/>) */}
+            <div style={{marginTop:'50px'}}>
+                {items.map(i => <MenuItem {...i}/>)}
             </div>
         </div>
     )

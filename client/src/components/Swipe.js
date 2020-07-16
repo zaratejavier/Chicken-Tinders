@@ -189,7 +189,7 @@ export default function Swipe(props) {
                     </div>
                 </div>
             </div>
-            {showMenu && <Menu name={currentRestaurant.name} showMenu={showMenu} setShowMenu={setShowMenu} items={currentRestaurant.menu_items}/>}
+            {showMenu && <Menu name={currentRestaurant.name} showMenu={showMenu} setShowMenu={setShowMenu} restaurant_id={currentRestaurant.id}/>}
         </div>
     )
 }

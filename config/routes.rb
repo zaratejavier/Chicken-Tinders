@@ -10,6 +10,12 @@ Rails.application.routes.draw do
     resources :restaurants 
   end 
 
+  namespace :api do 
+    resources :restaurants do
+      resources :menu_items
+    end
+  end
+
   namespace :api do
     resources :groups do
       resources :liked_restaurants
