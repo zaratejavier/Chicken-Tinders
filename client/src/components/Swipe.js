@@ -14,9 +14,8 @@ export default function Swipe(props) {
     const [currentRestaurant, setCurrentRestaurant] = useState('')
     const [weMatched, setWeMatched] = useState(false)
     const [count, setCount] = useState(0)
-    const [likes, setLikes] = useState([])
     const [showMenu, setShowMenu] = useState(false)
-    const [users, setUsers] = useState([])
+
 
 
     const getUsers = () => {
@@ -40,7 +39,6 @@ export default function Swipe(props) {
             .then(res => {
                 const correctGroup = res.data.filter(group => group.name ===`${code}`)
                 setGroupId(correctGroup[0].id)
-                console.log(res)
             })
             .catch(err => console.log(err))
         } else {
@@ -51,21 +49,11 @@ export default function Swipe(props) {
     useEffect(()=> {
         getRestaurants()
         getGroupId()
-        getLikes()
     },[])
-
-    // search for the one i just liked
-    // if it exists update the likedcount to two and set we matched to true
-    // if it doesnt exist create a liked restaurant and increment count
-
-    // then get all likes and see if any have been liked by everyone
-        //if any have set weMatched to true
-        // if not increment count by one
 
     const checkMatches = () => {
         Axios.get(`/api/groups/${groupId}/liked_restaurants/`)
         .then(res => {
-            console.log(res.data)
             if(res.data.length > 0){
                 const match = res.data.filter(r => {
                     return r.likedcount > 1
@@ -79,7 +67,6 @@ export default function Swipe(props) {
         Axios.get(`/api/groups/${groupId}/liked_restaurants/`)
         .then(res => {
         const match = res.data.filter(l => l.restaurant_id == currentRestaurant.id)
-        console.log('match filter returned:', match)
             if (match.length > 0){
                 updateLike(match[0].id)
             }else{
@@ -88,16 +75,6 @@ export default function Swipe(props) {
         })
         checkMatches()
     }
-
-    const getLikes = () => {
-        Axios.get(`/api/groups/${groupId}/liked_restaurants`)
-        .then(res => {
-            setLikes(res.data)
-            return res.data
-        })
-        .catch(err => console.log(err))
-    }
-
 
     const updateLike = (id) => {
         Axios.put(
@@ -112,7 +89,6 @@ export default function Swipe(props) {
     }
 
     const createLike = () => {
-        getLikes()
         Axios.post(
             `/api/groups/${groupId}/liked_restaurants/`,
             { likedcount: 1, group_id: groupId, restaurant_id: currentRestaurant.id }
@@ -131,25 +107,14 @@ export default function Swipe(props) {
         getUsers()
     }
 
-    //disliking
-    // are there any liked resturants?
-    // if not increase the number of the viewed restaurant
-    // if there are, do any have a likedcount = # of group member
-    // if so return that restaurant
-    // if not increase the number of the viewed restaurant
-
     const dislikeRestaurant = () => {
     Axios.get(`/api/groups/${groupId}/liked_restaurants`)
         .then(res => {
-            console.log(res.data)
-            //see if there are any liked restaurants with likedcount = # of group members
             if(res.data.length > 0){
             const match = res.data.filter(r => {
-                console.log(r.likedcount)
                 return r.likedcount > 1
             })
             return (match.length > 0 ? setWeMatched(!weMatched) :  setCount(count + 1), setCurrentRestaurant(restaurants[count]))
-            //if so set we matched to true and pass the id of the matched restaurant
             } else {
                 setCount(count + 1)
                 setCurrentRestaurant(restaurants[count])
@@ -159,7 +124,7 @@ export default function Swipe(props) {
         getUsers()
     }
 
-    if (count > restaurants.length) return <div><h1>No More Restaurants</h1></div>
+    if (count > restaurants.length) return <div style={{textAlign:'center'}}><h1>No More Restaurants</h1></div>
 
     return (
         <div>
