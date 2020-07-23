@@ -4,27 +4,8 @@
 
 ##### Chicken Tender solves the age old problem of not knowing where to eat in a group. You login and get a code which you can share with members of your group. As you and your group like and dislike different restaurants, you can see if there are any restaurants you all want to eat at.
 
+## View the project on https://chickentender.herokuapp.com
 
+#### the app currently only works for 2 people and isnt hooked up to an API. Future features will include the app being hooked up to an API, unlimited number of group members, being able to search by location and price range.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version 
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#####The app runs on a rails api and a react frontend. Dependancies include Axios
