@@ -7,6 +7,19 @@
   padding: 0px;
 }
 
+.switch{ 
+  width:70vw;
+  display: flex;
+  justify-content:space-around; 
+  align-items:center;
+}
+
+@media screen and (max-width: 750px) {
+  .switch {
+    flex-direction: column;
+  }
+}
+
 .btn {
       padding:'15px';
       font-size: '25px';

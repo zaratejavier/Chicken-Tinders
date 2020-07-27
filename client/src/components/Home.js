@@ -29,7 +29,7 @@ export default function Home(props) {
 
     return (
         <div style={{height:'100vh',width:'100vw', display:'flex',justifyContent:'space-around', alignItems:'center'}}>
-            <div style={{ width:'70vw', display:'flex', justifyContent:'space-around', alignItems:'center'}}>
+            <div className='switch'>
                 <HomeLogo/>
                 <div style={{height:'100%',display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
                     <button style={styles.button} onClick={() => createAGroup()}>Create a Group</button>
